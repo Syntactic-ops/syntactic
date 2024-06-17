@@ -3,12 +3,13 @@
     src: url('fonts/acid_bold.otf') format('opentype');
 }
 
-#logo, #new-logo {
-    max-width: 90vw; /* Max width 90% of the viewport width */
-    max-height: 60vh; /* Max height 60% of the viewport height */
-    transition: opacity 0.5s ease; /* Add transition for opacity */
-    object-fit: contain; /* Ensure the logo maintains its aspect ratio */
-    margin: 0 auto; /* Center the logos */
+.logo-container {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .palette-dot[data-palette="blue"] { background-color: #f2f1ec; }
