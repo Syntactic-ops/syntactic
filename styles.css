@@ -30,8 +30,8 @@ body {
     cursor: pointer;
 }
 
-.palette-dot[data-palette="darkgreen"] { background-color: blue; }
+.palette-dot[data-palette="blue"] { background-color: blue; }
 .palette-dot[data-palette="lightgreen"] { background-color: green; }
-.palette-dot[data-palette="red"] { background-color: red; }
+.palette-dot[data-palette="darkgreen"] { background-color: red; }
 .palette-dot[data-palette="purple"] { background-color: purple; }
 .palette-dot[data-palette="orange"] { background-color: orange; }
