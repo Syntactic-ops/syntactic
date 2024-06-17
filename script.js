@@ -28,8 +28,16 @@ document.addEventListener("DOMContentLoaded", () => {
     paletteDots.forEach(dot => {
         dot.addEventListener("click", () => {
             const palette = dot.getAttribute("data-palette");
-            logo.src = palettes[palette].logo;
-            document.body.style.backgroundColor = palettes[palette].backgroundColor;
+            
+            // Fade out the logo
+            logo.style.opacity = 0;
+
+            // Wait for the fade out to complete
+            setTimeout(() => {
+                logo.src = palettes[palette].logo;
+                logo.style.opacity = 1; // Fade in the logo
+                document.body.style.backgroundColor = palettes[palette].backgroundColor;
+            }, 500); // Match the transition duration in CSS
         });
     });
 });
