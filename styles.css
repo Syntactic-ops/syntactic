@@ -19,6 +19,7 @@ body {
 .logo-container {
     display: grid;
     place-items: center;
+    height: auto;
 }
 
 #logo, #new-logo {
