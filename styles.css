@@ -12,6 +12,7 @@ body {
 }
 
 .logo-container {
+    position: relative;
     flex: 1;
     display: flex;
     align-items: center;
@@ -20,10 +21,11 @@ body {
     height: 100%;
 }
 
-#logo {
+#logo, #new-logo {
+    position: absolute;
     max-width: 90vw; /* Max width 90% of the viewport width */
     max-height: 90vh; /* Max height 90% of the viewport height */
-    transition: filter 0.5s ease, opacity 0.5s ease; /* Add transition for opacity */
+    transition: opacity 0.5s ease; /* Add transition for opacity */
     object-fit: contain; /* Ensure the logo maintains its aspect ratio */
     padding: 20px; /* Add padding inside the logo container */
 }
