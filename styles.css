@@ -21,14 +21,17 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
+    max-width: 90vw;
+    max-height: 60vh;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 #logo, #new-logo {
-    max-width: 90vw; /* Max width 90% of the viewport width */
-    max-height: 60vh; /* Max height 60% of the viewport height */
+    max-width: 100%; /* Ensure logo fits within the container */
+    max-height: 100%; /* Ensure logo fits within the container */
     transition: opacity 0.5s ease; /* Add transition for opacity */
     object-fit: contain; /* Ensure the logo maintains its aspect ratio */
-    padding: 20px; /* Add padding inside the logo container */
 }
 
 .text-container {
