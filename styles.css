@@ -41,21 +41,6 @@ body {
     transition: color 0.5s ease; /* Add transition for color */
 }
 
-.palette-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    justify-content: center; /* Center the palette dots */
-}
-
-.palette-dot {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid black; /* Add black outline */
-}
-
 .palette-dot[data-palette="blue"] { background-color: #f2f1ec; }
 .palette-dot[data-palette="green"] { background-color: #cbddd1; }
 .palette-dot[data-palette="red"] { background-color: #122620; }
