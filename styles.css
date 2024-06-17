@@ -17,7 +17,7 @@ body {
 }
 
 .logo-container {
-    display: flex;
+    display: absolute;
     align-items: center;
     justify-content: center;
     width: 100%;
