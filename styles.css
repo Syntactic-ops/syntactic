@@ -21,8 +21,6 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: auto;
-    padding: 20px;
 }
 
 #logo, #new-logo {
@@ -30,6 +28,7 @@ body {
     max-height: 60vh; /* Max height 60% of the viewport height */
     transition: opacity 0.5s ease; /* Add transition for opacity */
     object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+    padding: 20px; /* Add padding inside the logo container */
 }
 
 .text-container {
