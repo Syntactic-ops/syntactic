@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'AcidBold';
+    src: url('fonts/acid_bold.otf') format('opentype');
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f2f1ec; /* Default background color */
+    transition: background-color 0.5s ease;
+    padding: 20px; /* Add padding around the edges */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+.logo-container {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#logo, #new-logo {
+    max-width: 90vw; /* Max width 90% of the viewport width */
+    max-height: 60vh; /* Max height 60% of the viewport height */
+    transition: opacity 0.5s ease; /* Add transition for opacity */
+    object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+    margin: 0 auto; /* Center the logos */
+}
+
+.text-container {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'AcidBold', Arial, sans-serif;
+    font-size: 20px;
+    transition: color 0.5s ease; /* Add transition for color */
+}
+
+.palette-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center; /* Center the palette dots */
+}
+
+.palette-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid black; /* Add black outline */
+}
+
+.palette-dot[data-palette="blue"] { background-color: #f2f1ec; }
+.palette-dot[data-palette="green"] { background-color: #cbddd1; }
+.palette-dot[data-palette="red"] { background-color: #122620; }
+.palette-dot[data-palette="purple"] { background-color: #2b192e; }
+.palette-dot[data-palette="orange"] { background-color: #f0dfc8; }
