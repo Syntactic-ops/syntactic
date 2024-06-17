@@ -5,7 +5,7 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #f2f1ec; /* Default background color */
     transition: background-color 0.5s ease;
 }
 
@@ -30,8 +30,8 @@ body {
     cursor: pointer;
 }
 
-.palette-dot[data-palette="blue"] { background-color: blue; }
-.palette-dot[data-palette="lightgreen"] { background-color: green; }
-.palette-dot[data-palette="darkgreen"] { background-color: red; }
-.palette-dot[data-palette="purple"] { background-color: purple; }
-.palette-dot[data-palette="orange"] { background-color: orange; }
+.palette-dot[data-palette="blue"] { background-color: #f2f1ec; }
+.palette-dot[data-palette="green"] { background-color: #cbddd1; }
+.palette-dot[data-palette="red"] { background-color: #122620; }
+.palette-dot[data-palette="purple"] { background-color: #2b192e; }
+.palette-dot[data-palette="orange"] { background-color: #f0dfc8; }
