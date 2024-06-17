@@ -12,16 +12,13 @@ body {
 }
 
 .logo-container {
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: auto;
 }
 
 #logo, #new-logo {
-    position: absolute;
     max-width: 90vw; /* Max width 90% of the viewport width */
     max-height: 60vh; /* Max height 60% of the viewport height */
     transition: opacity 0.5s ease; /* Add transition for opacity */
