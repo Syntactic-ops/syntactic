@@ -30,6 +30,13 @@ body {
     padding: 20px; /* Add padding inside the logo container */
 }
 
+.text-container {
+    text-align: center;
+    margin-top: 10px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
 .palette-container {
     display: flex;
     gap: 10px;
