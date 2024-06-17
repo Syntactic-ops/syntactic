@@ -9,7 +9,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    margin: auto;
+    margin: 0;
     background-color: #f2f1ec; /* Default background color */
     transition: background-color 0.5s ease;
     padding: 20px; /* Add padding around the edges */
@@ -21,17 +21,16 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 90vw;
-    max-height: 60vh;
     padding: 20px;
     box-sizing: border-box;
 }
 
 #logo, #new-logo {
-    max-width: 100%; /* Ensure logo fits within the container */
-    max-height: 100%; /* Ensure logo fits within the container */
+    max-width: 90vw; /* Max width 90% of the viewport width */
+    max-height: 60vh; /* Max height 60% of the viewport height */
     transition: opacity 0.5s ease; /* Add transition for opacity */
     object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+    margin: 0 auto; /* Center the logos */
 }
 
 .text-container {
@@ -46,6 +45,7 @@ body {
     display: flex;
     gap: 10px;
     margin-top: 10px;
+    justify-content: center; /* Center the palette dots */
 }
 
 .palette-dot {
