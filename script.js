@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const logo = document.getElementById("logo");
+    const newLogo = document.getElementById("new-logo");
     const paletteDots = document.querySelectorAll(".palette-dot");
 
     const palettes = {
@@ -28,15 +29,23 @@ document.addEventListener("DOMContentLoaded", () => {
     paletteDots.forEach(dot => {
         dot.addEventListener("click", () => {
             const palette = dot.getAttribute("data-palette");
-            
-            // Fade out the logo
+
+            // Set the new logo's source and background color
+            newLogo.src = palettes[palette].logo;
+            document.body.style.backgroundColor = palettes[palette].backgroundColor;
+
+            // Fade in the new logo
+            newLogo.style.opacity = 1;
+
+            // Fade out the old logo
             logo.style.opacity = 0;
 
             // Wait for the fade out to complete
             setTimeout(() => {
-                logo.src = palettes[palette].logo;
-                logo.style.opacity = 1; // Fade in the logo
-                document.body.style.backgroundColor = palettes[palette].backgroundColor;
+                // Switch the new logo to be the old logo
+                logo.src = newLogo.src;
+                logo.style.opacity = 1;
+                newLogo.style.opacity = 0;
             }, 500); // Match the transition duration in CSS
         });
     });
