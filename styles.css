@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'AcidBold';
+    src: url('fonts/acid_bold.otf') format('opentype');
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -30,7 +35,7 @@ body {
 .text-container {
     text-align: center;
     margin-top: 20px;
-    font-family: Arial, sans-serif;
+    font-family: 'AcidBold', Arial, sans-serif;
     transition: color 0.5s ease; /* Add transition for color */
 }
 
