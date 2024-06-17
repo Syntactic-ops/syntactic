@@ -12,14 +12,25 @@ body {
     margin: 0;
     background-color: #f2f1ec; /* Default background color */
     transition: background-color 0.5s ease;
-    padding: 20px; /* Add padding around the edges */
+    padding: 20px;
     box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; /* Ensure it takes up full height of the viewport */
+    width: 100%; /* Ensure it takes up full width of the viewport */
 }
 
 .logo-container {
     display: grid;
     place-items: center;
-    height: auto;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 #logo, #new-logo {
@@ -27,7 +38,6 @@ body {
     max-height: 60vh; /* Max height 60% of the viewport height */
     transition: opacity 0.5s ease; /* Add transition for opacity */
     object-fit: contain; /* Ensure the logo maintains its aspect ratio */
-    margin: auto; /* Center the logos */
 }
 
 .text-container {
