@@ -9,7 +9,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    margin: 0;
+    margin: auto;
     background-color: #f2f1ec; /* Default background color */
     transition: background-color 0.5s ease;
     padding: 20px; /* Add padding around the edges */
