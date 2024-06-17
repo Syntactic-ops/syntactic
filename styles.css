@@ -17,10 +17,8 @@ body {
 }
 
 .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: auto;
+    display: grid;
+    place-items: center;
 }
 
 #logo, #new-logo {
