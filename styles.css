@@ -26,11 +26,12 @@ body {
 }
 
 .logo-container {
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+    height: auto;
+    position: relative; /* Make it a containing block for absolutely positioned elements */
 }
 
 #logo, #new-logo {
@@ -38,6 +39,7 @@ body {
     max-height: 60vh; /* Max height 60% of the viewport height */
     transition: opacity 0.5s ease; /* Add transition for opacity */
     object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+    position: absolute; /* Position absolutely within the container */
 }
 
 .text-container {
