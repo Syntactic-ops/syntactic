@@ -30,6 +30,7 @@ body {
 }
 
 .text-container {
+    position: absolute;
     text-align: center;
     margin-top: 20px;
     font-family: Arial, sans-serif;
@@ -37,6 +38,7 @@ body {
 }
 
 .palette-container {
+    position: absolute;
     display: flex;
     gap: 10px;
     margin-top: 10px;
