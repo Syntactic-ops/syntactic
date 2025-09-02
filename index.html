@@ -1,35 +1,31 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Syntactic</title>
-    <meta name="description" content="Syntactic — a tiny playful lander with a typewriter intro, random word generator, and a code-editor vibe." />
-    <meta name="theme-color" content="#0b0e14" />
-    <link rel="stylesheet" href="assets/styles.css?v=1">
-  </head>
-  <body>
-    <main class="editor" role="main">
-      <div class="editor__chrome" aria-hidden="true">
-        <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
-        <span class="title">syntactic.jsx — ~/src</span>
-      </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Syntactic</title>
+  <meta name="description" content="Syntactic — a tiny playful lander with a typewriter intro, random word generator, and a code-editor vibe." />
+  <link rel="stylesheet" href="assets/styles.css?v=2">
+</head>
+<body>
+  <main class="editor" role="main">
+    <div class="editor__chrome" aria-hidden="true">
+      <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+      <span class="title">syntactic.jsx — ~/src</span>
+    </div>
 
+    <section class="editor__body">
+      <div class="gutter" aria-hidden="true" id="gutter"></div>
+      <pre class="code" aria-label="Syntactic code-style intro" id="codeblock"></pre>
+    </section>
 
-      <section class="editor__body">
-        <div class="gutter" aria-hidden="true" id="gutter"></div>
-        <pre class="code" aria-label="Syntactic code-style intro" id="codeblock"></pre>
-      </section>
-
-
-      <footer>
-        <span>© <span id="year"></span> Syntactic. Minimal site, maximal vibes. •
+    <footer>
+      <span>© <span id="year"></span> Syntactic. Minimal site, maximal vibes. •
         <a class="link" href="mailto:hello@syntactic.co.nz">hello@syntactic.co.nz</a></span>
-      </footer>
-    </main>
-
+    </footer>
+  </main>
 
   <noscript>This page uses a tiny bit of JavaScript to render the fake code block and micro-interactions.</noscript>
-  <script src="assets/main.js?v=1" defer></script>
+  <script src="assets/main.js?v=2" defer></script>
 </body>
 </html>
