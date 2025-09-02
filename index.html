@@ -1,8 +1,218 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Syntactic</title>
+  <meta name="description" content="Syntactic — a tiny playful lander with a typewriter intro, random word generator, and a code‑editor vibe." />
+  <style>
+    :root{
+      --bg:#0b0e14;
+      --panel:#11151f;
+      --ink:#e6e6e6;
+      --muted:#99a3b2;
+      --accent:#3df083;
+      --accent-2:#6ea8fe;
+      --accent-3:#f7a07f;
+      --accent-4:#c792ea;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; background:linear-gradient(180deg,#0a0d13, #0b0e14 40%, #0a0d13);
+      color:var(--ink); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      display:grid; place-items:center; padding:2rem;
+    }
+
+    .editor{
+      width:min(980px, 95vw);
+      background:var(--panel);
+      border-radius:16px; box-shadow:var(--shadow);
+      overflow:hidden; border:1px solid #192033;
+    }
+    .editor__chrome{
+      display:flex; align-items:center; gap:.5rem; padding:.75rem 1rem; background:#0f1420; border-bottom:1px solid #192033;
+    }
+    .dot{width:12px; height:12px; border-radius:50%}
+    .dot.red{background:#ff5f56}
+    .dot.amber{background:#ffbd2e}
+    .dot.green{background:#27c93f}
+    .title{margin-left:.5rem; color:var(--muted); font-size:.9rem}
+
+    .editor__body{display:grid; grid-template-columns:auto 1fr}
+    .gutter{background:#0f1420; color:#44506a; padding:1rem .75rem; font-family:var(--mono); font-size:.9rem; user-select:none}
+    .gutter div{height:1.85rem}
+
+    .code{padding:1rem 1.25rem; font-family:var(--mono); font-size:.95rem; line-height:1.85rem; white-space:pre-wrap}
+    .code .kw{color:var(--accent-4)}
+    .code .str{color:var(--accent-2)}
+    .code .num{color:var(--accent-3)}
+    .code .cm{color:#5c6b85}
+    .code .fn{color:#7bd88f}
+    .code .tag{color:#e5c07b}
+
+    .type-line{display:inline-block; border-right:2px solid var(--accent); white-space:nowrap; overflow:hidden}
+    @keyframes blink{50%{border-color:transparent}}
+    .type-line{animation: blink 1s steps(1,end) infinite}
+
+    .panel{border-top:1px dashed #22314d; padding:1rem 1.25rem; display:grid; gap:1rem}
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem}
+    @media (max-width:800px){.cards{grid-template-columns:1fr}}
+    .card{background:#0f1420; border:1px solid #192033; border-radius:12px; padding:1rem}
+    .card h3{margin:.25rem 0 .5rem; font-size:1rem; color:var(--accent)}
+    .card p{margin:0; color:var(--muted)}
+    .actions{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.75rem}
+    .btn{background:transparent; color:var(--ink); border:1px solid #2a3a5d; padding:.55rem .8rem; border-radius:10px; text-decoration:none; font-size:.9rem; line-height:1; transition: transform .1s ease, border-color .2s ease;}
+    .btn:hover{border-color:var(--accent); transform:translateY(-1px)}
+
+    .generator{display:grid; gap:.75rem; align-items:start}
+    .gen-output{background:#0f1420; border:1px solid #192033; border-radius:10px; padding:.85rem; min-height:2.5rem}
+    .micro{color:#5c6b85; font-size:.85rem}
+
+    footer{padding:1rem 1.25rem; font-size:.85rem; color:var(--muted); border-top:1px solid #192033}
+    a.link{color:var(--accent); text-decoration:none}
+    a.link:hover{text-decoration:underline}
+  </style>
 </head>
-  <body>
-    Hello.
-  </body>
+<body>
+  <main class="editor" role="main">
+    <div class="editor__chrome" aria-hidden="true">
+      <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+      <span class="title">syntactic.jsx — ~/src</span>
+    </div>
+
+    <section class="editor__body">
+      <div class="gutter" aria-hidden="true" id="gutter"></div>
+
+      <pre class="code" aria-label="Syntactic code‑style intro" id="codeblock"></pre>
+    </section>
+
+    <footer>
+      <span>© <span id="year"></span> Syntactic. Minimal site, maximal vibes. • <a class="link" href="mailto:hello@syntactic.co.nz">hello@syntactic.co.nz</a></span>
+    </footer>
+  </main>
+
+  <script>
+    const codeLines = `// Hi, I'm Ben. This is a playful one‑page calling card.
+const brand = "Syntactic"
+const tagline = "<span id=typewriter class=type-line aria-live=polite></span>"
+
+function summon(method){
+  return method === "email" ? "mailto:hello@syntactic.co.nz" : "https://github.com/Ben"
+}
+
+// Quick links
+<nav>
+  <a href="mailto:hello@syntactic.co.nz" class="btn">Send words this way →</a>
+  <a href="https://github.com" class="btn">GitHub</a>
+  <a href="https://x.com" class="btn">Sometimes I post</a>
+</nav>
+
+// Mini portfolio cards (expandable)
+<section class="panel">
+  <div class="cards">
+    <article class="card">
+      <h3>Who I Am</h3>
+      <p>Developer-ish, transcriptionist-ish, professional tinkerer. Mildly obsessed with tidy UX and fun micro‑interactions.</p>
+      <div class="actions">
+        <a href="mailto:hello@syntactic.co.nz" class="btn">Email</a>
+        <a href="https://movesmart.nz" class="btn">Recent project</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>What I Do</h3>
+      <p>Build small, useful things. Sometimes bigger things. Always readable code. Often with coffee.</p>
+      <div class="actions">
+        <a href="#" class="btn" id="toggleTerminal">Toggle terminal mode</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <h3>Where to Find Me</h3>
+      <p>Mostly here. Occasionally on GitHub. Rarely on social. Always open to good ideas.</p>
+      <div class="actions">
+        <a href="https://github.com" class="btn">GitHub</a>
+        <a href="mailto:hello@syntactic.co.nz" class="btn">Contact</a>
+      </div>
+    </article>
+  </div>
+
+  // Random word generator
+  <div class="generator">
+    <button class="btn" id="rollWord">Roll a word</button>
+    <div class="gen-output" id="wordOut"><span class="micro">(You get a delightfully odd word + definition.)</span></div>
+  </div>
+</section>`;
+
+    document.getElementById('codeblock').innerHTML = codeLines;
+
+    (function buildGutter(){
+      const lines = codeLines.split('\n').length;
+      const g = document.getElementById('gutter');
+      const frag = document.createDocumentFragment();
+      for(let i=1;i<=lines;i++){ const d=document.createElement('div'); d.textContent = i; frag.appendChild(d);} g.appendChild(frag);
+    })();
+
+    const phrases = [
+      'parsing ideas…',
+      'transcribing nonsense beautifully.',
+      'shipping tiny, shiny tools.',
+      'wrangling syntax for fun.',
+      'building delightful micro‑things.',
+    ];
+
+    const tw = document.createElement('span');
+    tw.id = 'typewriter';
+    document.querySelector('#codeblock').innerHTML = document.querySelector('#codeblock').innerHTML.replace('<span id=typewriter class=type-line aria-live=polite></span>', '<span id="typewriter" class="type-line" aria-live="polite"></span>');
+    const typer = document.getElementById('typewriter');
+
+    let p = 0, i = 0, deleting = false;
+    function tick(){
+      const text = phrases[p];
+      const speed = deleting ? 45 : 85;
+      if(!deleting){
+        i++;
+        typer.textContent = text.slice(0,i);
+        if(i === text.length){ deleting = true; setTimeout(tick, 1000); return; }
+      } else {
+        i--;
+        typer.textContent = text.slice(0,i);
+        if(i === 0){ deleting = false; p = (p+1) % phrases.length; }
+      }
+      setTimeout(tick, speed + Math.random()*120);
+    }
+    tick();
+
+    const WORDS = [
+      {w:'apopheny', d:'The urge to find patterns where none exist.'},
+      {w:'keysmack', d:'To type with enthusiasm bordering on percussion.'},
+      {w:'semicolonial', d:'Excessively fond of semicolons.'},
+      {w:'debugling', d:'A tiny bug that vanishes the moment you open DevTools.'},
+      {w:'linklark', d:'A whimsical link you click with no idea why.'},
+    ];
+
+    document.getElementById('rollWord').addEventListener('click', ()=>{
+      const {w,d} = WORDS[Math.floor(Math.random()*WORDS.length)];
+      document.getElementById('wordOut').innerHTML = `<strong>${w}</strong> — ${d}`;
+    });
+
+    document.getElementById('toggleTerminal').addEventListener('click', (e)=>{
+      e.preventDefault();
+      const body = document.body;
+      const isTerm = body.dataset.term === '1';
+      body.dataset.term = isTerm ? '0' : '1';
+      if(!isTerm){
+        document.documentElement.style.setProperty('--panel', '#0a0a0a');
+        document.documentElement.style.setProperty('--ink', '#d8d8d8');
+      } else {
+        document.documentElement.style.setProperty('--panel', '#11151f');
+        document.documentElement.style.setProperty('--ink', '#e6e6e6');
+      }
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
