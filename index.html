@@ -1,31 +1,255 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syntactic - Coming Soon</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="images/Favicon.svg" type="image/svg+xml">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Syntactic</title>
+  <meta name="description" content="Syntactic — a tiny playful lander with a typewriter intro, random word generator, and a code‑editor vibe." />
+  <style>
+    :root{
+      --bg:#0b0e14;         /* deep editor bg */
+      --panel:#11151f;      /* panel bg */
+      --ink:#e6e6e6;        /* body text */
+      --muted:#99a3b2;      /* muted text */
+      --accent:#3df083;     /* playful green */
+      --accent-2:#6ea8fe;   /* blue for strings */
+      --accent-3:#f7a07f;   /* orange for numbers */
+      --accent-4:#c792ea;   /* purple for keywords */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; background:linear-gradient(180deg,#0a0d13, #0b0e14 40%, #0a0d13);
+      color:var(--ink); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+      display:grid; place-items:center; padding:2rem;
+    }
+
+    .editor{
+      width:min(980px, 95vw);
+      background:var(--panel);
+      border-radius:16px; box-shadow:var(--shadow);
+      overflow:hidden; border:1px solid #192033;
+    }
+    .editor__chrome{
+      display:flex; align-items:center; gap:.5rem; padding:.75rem 1rem; background:#0f1420; border-bottom:1px solid #192033;
+    }
+    .dot{width:12px; height:12px; border-radius:50%}
+    .dot.red{background:#ff5f56}
+    .dot.amber{background:#ffbd2e}
+    .dot.green{background:#27c93f}
+    .title{margin-left:.5rem; color:var(--muted); font-size:.9rem}
+
+    .editor__body{display:grid; grid-template-columns:auto 1fr}
+    .gutter{background:#0f1420; color:#44506a; padding:1rem .75rem; font-family:var(--mono); font-size:.9rem; user-select:none}
+    .gutter div{height:1.85rem}
+
+    .code{padding:1rem 1.25rem; font-family:var(--mono); font-size:.95rem; line-height:1.85rem}
+    .code .kw{color:var(--accent-4)}
+    .code .str{color:var(--accent-2)}
+    .code .num{color:var(--accent-3)}
+    .code .cm{color:#5c6b85}
+    .code .fn{color:#7bd88f}
+    .code .tag{color:#e5c07b}
+
+    /* typing line */
+    .type-line{display:inline-block; border-right:2px solid var(--accent); white-space:nowrap; overflow:hidden}
+    @media (prefers-reduced-motion: no-preference){
+      .type-line{animation: blink 1s steps(1,end) infinite}
+      @keyframes blink{50%{border-color:transparent}}
+    }
+
+    .panel{
+      border-top:1px dashed #22314d; padding:1rem 1.25rem; display:grid; gap:1rem
+    }
+    .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem}
+    @media (max-width:800px){.cards{grid-template-columns:1fr}}
+    .card{background:#0f1420; border:1px solid #192033; border-radius:12px; padding:1rem}
+    .card h3{margin:.25rem 0 .5rem; font-size:1rem; color:var(--accent)}
+    .card p{margin:0; color:var(--muted)}
+    .actions{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.75rem}
+    .btn{
+      background:transparent; color:var(--ink); border:1px solid #2a3a5d; padding:.55rem .8rem; border-radius:10px; text-decoration:none; font-size:.9rem; line-height:1; transition: transform .1s ease, border-color .2s ease;
+    }
+    .btn:hover{border-color:var(--accent); transform:translateY(-1px)}
+
+    .generator{display:grid; gap:.75rem; align-items:start}
+    .gen-output{background:#0f1420; border:1px solid #192033; border-radius:10px; padding:.85rem; min-height:2.5rem}
+    .micro{color:#5c6b85; font-size:.85rem}
+
+    footer{padding:1rem 1.25rem; font-size:.85rem; color:var(--muted); border-top:1px solid #192033}
+    a.link{color:var(--accent); text-decoration:none}
+    a.link:hover{text-decoration:underline}
+  </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="logo-container">
-            <img id="logo" src="images/logo-blue.png" alt="Syntactic Logo">
-            <img id="new-logo" src="images/logo-blue.png" alt="New Syntactic Logo" style="opacity: 0;">
-        </div>
-        <div class="bottom-container">
-            <div class="text-container">
-                <p>COMING SOON.<br><a href="mailto:ben@syntactic.co.nz">BEN@SYNTACTIC.CO.NZ</a></p>
-            </div>
-            <div class="palette-container">
-                <div class="palette-dot" data-palette="blue"></div>
-                <div class="palette-dot" data-palette="green"></div>
-                <div class="palette-dot" data-palette="red"></div>
-                <div class="palette-dot" data-palette="purple"></div>
-                <div class="palette-dot" data-palette="orange"></div>
-            </div>
-        </div>
+  <main class="editor" role="main">
+    <div class="editor__chrome" aria-hidden="true">
+      <span class="dot red"></span><span class="dot amber"></span><span class="dot green"></span>
+      <span class="title">syntactic.jsx — ~/src</span>
     </div>
-    <script src="script.js"></script>
+
+    <section class="editor__body">
+      <!-- Line numbers (adjust count to match code block lines) -->
+      <div class="gutter" aria-hidden="true" id="gutter"></div>
+
+      <pre class="code" aria-label="Syntactic code‑style intro">
+<span class="cm">// Hi, I'm Ben. This is a playful one‑page calling card.</span>
+<span class="kw">const</span> brand <span class="kw">=</span> <span class="str">"Syntactic"</span>
+<span class="kw">const</span> tagline <span class="kw">=</span> <span class="str"><span id="typewriter" class="type-line" aria-live="polite"></span></span>
+
+<span class="kw">function</span> <span class="fn">summon</span>(method){
+  <span class="kw">return</span> method <span class="kw">===</span> <span class="str">"email"</span> <span class="kw">?</span> <span class="str">"mailto:hello@syntactic.co.nz"</span> <span class="kw">:</span> <span class="str">"https://github.com/Ben"</span>
+}
+
+<span class="cm">// Quick links</span>
+<span class="tag">&lt;nav&gt;</span>
+  <span class="tag">&lt;a</span> href=<span class="str">"mailto:hello@syntactic.co.nz"</span> class=<span class="str">"btn"</span><span class="tag">&gt;</span>Send words this way →<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> href=<span class="str">"https://github.com"</span> class=<span class="str">"btn"</span><span class="tag">&gt;</span>GitHub<span class="tag">&lt;/a&gt;</span>
+  <span class="tag">&lt;a</span> href=<span class="str">"https://x.com"</span> class=<span class="str">"btn"</span><span class="tag">&gt;</span>Sometimes I post<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;/nav&gt;</span>
+
+<span class="cm">// Mini portfolio cards (expandable)</span>
+<span class="tag">&lt;section</span> class=<span class="str">"panel"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> class=<span class="str">"cards"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;article</span> class=<span class="str">"card"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;h3&gt;</span>Who I Am<span class="tag">&lt;/h3&gt;</span>
+      <span class="tag">&lt;p&gt;</span>Developer-ish, transcriptionist-ish, professional tinkerer. Mildly obsessed with tidy UX and fun micro‑interactions.<span class="tag">&lt;/p&gt;</span>
+      <span class="tag">&lt;div</span> class=<span class="str">"actions"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;a</span> href=<span class="str">"mailto:hello@syntactic.co.nz"</span> class=<span class="str">"btn"</span><span class="tag">&gt;</span>Email<span class="tag">&lt;/a&gt;</span>
+        <span class="tag">&lt;a</span> href=<span class="str">"https://movesmart.nz"</span> class=<span class="str">"btn"</span><span class="tag">&gt;</span>Recent project<span class="tag">&lt;/a&gt;</span>
+      <span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/article&gt;</span>
+
+    <span class="tag">&lt;article</span> class=<span class="str">"card"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;h3&gt;</span>What I Do<span class="tag">&lt;/h3&gt;</span>
+      <span class="tag">&lt;p&gt;</span>Build small, useful things. Sometimes bigger things. Always readable code. Often with coffee.<span class="tag">&lt;/p&gt;</span>
+      <span class="tag">&lt;div</span> class=<span class="str">"actions"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;a</span> href=<span class="str">"#"</span> class=<span class="str">"btn"</span> id=<span class="str">"toggleTerminal"</span><span class="tag">&gt;</span>Toggle terminal mode<span class="tag">&lt;/a&gt;</span>
+      <span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/article&gt;</span>
+
+    <span class="tag">&lt;article</span> class=<span class="str">"card"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;h3&gt;</span>Where to Find Me<span class="tag">&lt;/h3&gt;</span>
+      <span class="tag">&lt;p&gt;</span>Mostly here. Occasionally on GitHub. Rarely on social. Always open to good ideas.<span class="tag">&lt;/p&gt;</span>
+      <span class="tag">&lt;div</span> class=<span class="str">"actions"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;a</span> href=<span class="str">"https://github.com"</span> class=<span class="str">"btn"</span><span class="tag">&gt;</span>GitHub<span class="tag">&lt;/a&gt;</span>
+        <span class="tag">&lt;a</span> href=<span class="str">"mailto:hello@syntactic.co.nz"</span> class=<span class="str">"btn"</span><span class="tag">&gt;</span>Contact<span class="tag">&lt;/a&gt;</span>
+      <span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/article&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+  <span class="cm">// Random word generator</span>
+  <span class="tag">&lt;div</span> class=<span class="str">"generator"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;button</span> class=<span class="str">"btn"</span> id=<span class="str">"rollWord"</span><span class="tag">&gt;</span>Roll a word<span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;div</span> class=<span class="str">"gen-output"</span> id=<span class="str">"wordOut"</span><span class="tag">&gt;</span><span class="micro">(You get a delightfully odd word + definition.)</span><span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/section&gt;</span>
+
+      </pre>
+    </section>
+
+    <footer>
+      <span>© <span id="year"></span> Syntactic. Minimal site, maximal vibes. • <a class="link" href="mailto:hello@syntactic.co.nz">hello@syntactic.co.nz</a></span>
+    </footer>
+  </main>
+
+  <script>
+    // Populate gutter line numbers to match code lines
+    (function buildGutter(){
+      const lines = document.querySelector('.code').innerText.split('\n').length;
+      const g = document.getElementById('gutter');
+      const frag = document.createDocumentFragment();
+      for(let i=1;i<=lines;i++){ const d=document.createElement('div'); d.textContent = i; frag.appendChild(d);} g.appendChild(frag);
+    })();
+
+    // Typewriter with occasional playful typo + backspace
+    const phrases = [
+      'parsing ideas…',
+      'transcribing nonsense beautifully.',
+      'shipping tiny, shiny tools.',
+      'wrangling syntax for fun.',
+      'building delightful micro‑things.',
+    ];
+
+    const tw = document.getElementById('typewriter');
+    let p = 0, i = 0, deleting = false;
+
+    function tick(){
+      const text = phrases[p];
+      const speed = deleting ? 45 : 85;
+
+      // random typo: 1 in ~70 chances while typing
+      if(!deleting && Math.random() < 0.014 && i>1 && i<text.length-1){
+        tw.textContent = text.slice(0,i) + 'x';
+        setTimeout(()=>{ deleting = true; }, 150);
+        return setTimeout(tick, 180);
+      }
+
+      if(!deleting){
+        i++;
+        tw.textContent = text.slice(0,i);
+        if(i === text.length){ deleting = true; setTimeout(tick, 1000); return; }
+      } else {
+        i--;
+        tw.textContent = text.slice(0,i);
+        if(i === 0){ deleting = false; p = (p+1) % phrases.length; }
+      }
+      setTimeout(tick, speed + Math.random()*120);
+    }
+    tick();
+
+    // Random word generator
+    const WORDS = [
+      {w:'apopheny', d:'The urge to find patterns where none exist; your brain doing amateur detective work.'},
+      {w:'keysmack', d:'To type with enthusiasm bordering on percussion.'},
+      {w:'semicolonial', d:'Excessively fond of semicolons; cannot stop linking clauses.'},
+      {w:'debugling', d:'A tiny bug that vanishes the moment you open DevTools.'},
+      {w:'linklark', d:'A whimsical link you click with no idea why.'},
+      {w:'quiescript', d:'Code that works but refuses to explain itself.'},
+      {w:'yakstack', d:'The towering pile of errands you must shave before real work.'},
+      {w:'snacktrace', d:'Crumbs that reveal exactly when the bug appeared.'},
+      {w:'noodleproof', d:'So simple even soggy noodles would pass QA.'},
+      {w:'synthax', d:'When the syntax looks so good it practically sings.'},
+      {w:'ghostcommit', d:'A commit you clearly remember pushing that never existed.'},
+      {w:'hyperundo', d:'Rapid ctrl+Zing that travels back to a happier timeline.'},
+      {w:'featurelet', d:'A feature so small it squeaks.'},
+      {w:'banterface', d:'The UI you open when you need to procrastinate productively.'},
+      {w:'rubberduckery', d:'Arcane wisdom obtained by explaining your code to a rubber duck.'},
+      {w:'scrollgloom', d:'The existential dread after reading comments for too long.'},
+      {w:'compile‑smile', d:'That involuntary grin when it finally builds.'},
+      {w:'syntaxhug', d:'Perfect indentation that makes your soul feel aligned.'},
+      {w:'docudoodle', d:'A diagram that somehow explains everything and nothing.'},
+      {w:'ship’o’clock', d:'An indeterminate time when things leave the nest.'}
+    ];
+
+    const wordBtn = document.getElementById('rollWord');
+    const out = document.getElementById('wordOut');
+    wordBtn.addEventListener('click', ()=>{
+      const {w,d} = WORDS[Math.floor(Math.random()*WORDS.length)];
+      out.innerHTML = `<strong>${w}</strong> — ${d}`;
+    });
+
+    // Fake terminal mode (just toggles font + colors subtly)
+    const toggle = document.getElementById('toggleTerminal');
+    toggle.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const body = document.body;
+      const isTerm = body.dataset.term === '1';
+      body.dataset.term = isTerm ? '0' : '1';
+      if(!isTerm){
+        document.documentElement.style.setProperty('--panel', '#0a0a0a');
+        document.documentElement.style.setProperty('--ink', '#d8d8d8');
+        document.documentElement.style.setProperty('--accent', '#3df083');
+      } else {
+        document.documentElement.style.setProperty('--panel', '#11151f');
+        document.documentElement.style.setProperty('--ink', '#e6e6e6');
+      }
+    });
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
