@@ -1,6 +1,12 @@
 :root{
-  --bg:#0b0e14; --panel:#11151f; --ink:#e6e6e6; --muted:#99a3b2;
-  --accent:#3df083; --accent-2:#6ea8fe; --accent-3:#f7a07f; --accent-4:#c792ea;
+  --bg:#0b0e14;
+  --panel:#11151f;
+  --ink:#e6e6e6;
+  --muted:#99a3b2;
+  --accent:#3df083;
+  --accent-2:#6ea8fe;
+  --accent-3:#f7a07f;
+  --accent-4:#c792ea;
   --shadow: 0 10px 30px rgba(0,0,0,.35);
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -10,19 +16,35 @@ body{
   color:var(--ink); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   display:grid; place-items:center; padding:2rem;
 }
+
+
 .editor{width:min(980px, 95vw); background:var(--panel); border-radius:16px; box-shadow:var(--shadow); overflow:hidden; border:1px solid #192033;}
 .editor__chrome{display:flex; align-items:center; gap:.5rem; padding:.75rem 1rem; background:#0f1420; border-bottom:1px solid #192033;}
 .dot{width:12px; height:12px; border-radius:50%}
-.dot.red{background:#ff5f56} .dot.amber{background:#ffbd2e} .dot.green{background:#27c93f}
+.dot.red{background:#ff5f56}
+.dot.amber{background:#ffbd2e}
+.dot.green{background:#27c93f}
 .title{margin-left:.5rem; color:var(--muted); font-size:.9rem}
+
+
 .editor__body{display:grid; grid-template-columns:auto 1fr}
 .gutter{background:#0f1420; color:#44506a; padding:1rem .75rem; font-family:var(--mono); font-size:.9rem; user-select:none}
 .gutter div{height:1.85rem}
+
+
 .code{padding:1rem 1.25rem; font-family:var(--mono); font-size:.95rem; line-height:1.85rem; white-space:pre-wrap}
-.code .kw{color:var(--accent-4)} .code .str{color:var(--accent-2)} .code .num{color:var(--accent-3)}
-.code .cm{color:#5c6b85} .code .fn{color:#7bd88f} .code .tag{color:#e5c07b}
-.type-line{display:inline-block; border-right:2px solid var(--accent); white-space:nowrap; overflow:hidden; animation: blink 1s steps(1,end) infinite}
+.code .kw{color:var(--accent-4)}
+.code .str{color:var(--accent-2)}
+.code .num{color:var(--accent-3)}
+.code .cm{color:#5c6b85}
+.code .fn{color:#7bd88f}
+.code .tag{color:#e5c07b}
+
+
+.type-line{display:inline-block; border-right:2px solid var(--accent); white-space:nowrap; overflow:hidden; animation: blink 1s steps(1,end) infinite; color:var(--accent)}
 @keyframes blink{50%{border-color:transparent}}
+
+
 .panel{border-top:1px dashed #22314d; padding:1rem 1.25rem; display:grid; gap:1rem}
 .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem}
 @media (max-width:800px){.cards{grid-template-columns:1fr}}
@@ -32,9 +54,13 @@ body{
 .actions{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.75rem}
 .btn{background:transparent; color:var(--ink); border:1px solid #2a3a5d; padding:.55rem .8rem; border-radius:10px; text-decoration:none; font-size:.9rem; line-height:1; transition: transform .1s ease, border-color .2s ease;}
 .btn:hover{border-color:var(--accent); transform:translateY(-1px)}
+
+
 .generator{display:grid; gap:.75rem; align-items:start}
 .gen-output{background:#0f1420; border:1px solid #192033; border-radius:10px; padding:.85rem; min-height:2.5rem}
 .micro{color:#5c6b85; font-size:.85rem}
+
+
 footer{padding:1rem 1.25rem; font-size:.85rem; color:var(--muted); border-top:1px solid #192033}
 a.link{color:var(--accent); text-decoration:none}
 a.link:hover{text-decoration:underline}
