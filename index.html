@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Syntactic</title>
-  <meta name="description" content="Syntactic — a tiny playful lander with a typewriter intro, random word generator, and a code‑editor vibe." />
+  <meta name="description" content="Syntactic — a tiny playful lander with a typewriter intro, random word generator, and a code-editor vibe." />
   <style>
     :root{
       --bg:#0b0e14;
@@ -85,7 +85,7 @@
     <section class="editor__body">
       <div class="gutter" aria-hidden="true" id="gutter"></div>
 
-      <pre class="code" aria-label="Syntactic code‑style intro" id="codeblock"></pre>
+      <pre class="code" aria-label="Syntactic code-style intro" id="codeblock"></pre>
     </section>
 
     <footer>
@@ -94,12 +94,14 @@
   </main>
 
   <script>
-    const codeLines = `// Hi, I'm Ben. This is a playful one‑page calling card.
+    const codeLines = `// Hi, I'm Ben. This is a playful one-page calling card.
+
+
 const brand = "Syntactic"
 const tagline = "<span id=typewriter class=type-line aria-live=polite></span>"
 
 function summon(method){
-  return method === "email" ? "mailto:hello@syntactic.co.nz" : "https://github.com/Ben"
+  return (method === "email") ? "mailto:hello@syntactic.co.nz" : "https://github.com/Ben"
 }
 
 // Quick links
@@ -114,7 +116,7 @@ function summon(method){
   <div class="cards">
     <article class="card">
       <h3>Who I Am</h3>
-      <p>Developer-ish, transcriptionist-ish, professional tinkerer. Mildly obsessed with tidy UX and fun micro‑interactions.</p>
+      <p>Developer-ish, transcriptionist-ish, professional tinkerer. Mildly obsessed with tidy UX and fun micro-interactions.</p>
       <div class="actions">
         <a href="mailto:hello@syntactic.co.nz" class="btn">Email</a>
         <a href="https://movesmart.nz" class="btn">Recent project</a>
@@ -139,11 +141,11 @@ function summon(method){
     </article>
   </div>
 
-  // Random word generator
-  <div class="generator">
-    <button class="btn" id="rollWord">Roll a word</button>
-    <div class="gen-output" id="wordOut"><span class="micro">(You get a delightfully odd word + definition.)</span></div>
-  </div>
+// Random word generator
+<div class="generator">
+  <button class="btn" id="rollWord">Roll a word</button>
+  <div class="gen-output" id="wordOut"><span class="micro">(You get a delightfully odd word + definition.)</span></div>
+</div>
 </section>`;
 
     document.getElementById('codeblock').innerHTML = codeLines;
@@ -160,11 +162,9 @@ function summon(method){
       'transcribing nonsense beautifully.',
       'shipping tiny, shiny tools.',
       'wrangling syntax for fun.',
-      'building delightful micro‑things.',
+      'building delightful micro-things.',
     ];
 
-    const tw = document.createElement('span');
-    tw.id = 'typewriter';
     document.querySelector('#codeblock').innerHTML = document.querySelector('#codeblock').innerHTML.replace('<span id=typewriter class=type-line aria-live=polite></span>', '<span id="typewriter" class="type-line" aria-live="polite"></span>');
     const typer = document.getElementById('typewriter');
 
